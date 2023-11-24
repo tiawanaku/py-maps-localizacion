@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa con Marcadores Personalizados</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+
+<div id="mapid" style="width: 600px; height: 400px;"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    var mymap = L.map('mapid').setView([0, 0], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(mymap);
+
+    var carIcon = L.icon({
+        iconUrl: 'car-icon.png', // Reemplaza 'car-icon.png' con la URL de tu ícono de auto
+        iconSize: [32, 32], // Tamaño del ícono
+        iconAnchor: [16, 16], // Punto del ícono que corresponderá a la ubicación del marcador
+        popupAnchor: [0, -16] // Dónde se mostrará el popup en relación al ícono
+    });
+
+    var locations = [
+        { lat: 51.5, lon: -0.09, name: 'Punto A' },
+        { lat: 48.8566, lon: 2.3522, name: 'Punto B' },
+        { lat: 40.7128, lon: -74.0060, name: 'Punto C' }
+    ];
+
+    locations.forEach(function(location) {
+        L.marker([location.lat, location.lon], {icon: carIcon}).addTo(mymap)
+            .bindPopup(location.name);
+    });
+</script>
+
+</body>
+</html>
+
